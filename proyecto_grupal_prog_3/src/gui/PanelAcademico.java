@@ -2,6 +2,10 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Image;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
+import javax.swing.JList;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -51,6 +55,21 @@ public class PanelAcademico extends JPanel {
 		txtFecha = new JTextField(8);
 		cmbEstres = new JComboBox<Integer>(new Integer[] { 1, 2, 3, 4, 5 });
 		btnAnadir = new JButton("Añadir");
+		
+		//iconos de combo box
+				//ponemos una imagen en cada opcion del desplegable: resources/images/estres1.png, estres2.png...
+				cmbEstres.setRenderer(new DefaultListCellRenderer() {
+					@Override
+					public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+						JLabel etiqueta = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+						if (value != null) {
+							Integer nivelEstres = (Integer) value;
+							//tamaño de la imagen del png, modificar
+							etiqueta.setIcon(new ImageIcon(new ImageIcon("resources/images/estres" + nivelEstres + ".png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+						}
+						return etiqueta;
+					}
+				});
  
 		panelFormulario.add(new JLabel("Asignatura:"));
 		panelFormulario.add(txtAsignatura);
