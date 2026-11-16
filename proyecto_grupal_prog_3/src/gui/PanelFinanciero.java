@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -20,6 +21,10 @@ import javax.swing.JTextField;
 import domain.Gasto.TipoGasto;
 import domain.GestionFinanciera;
 import domain.Gasto;
+import java.awt.Component;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
+import javax.swing.JList;
 //nuestro panel financiero
 public class PanelFinanciero extends JPanel {
 
@@ -73,6 +78,22 @@ public class PanelFinanciero extends JPanel {
 		JLabel tipo = new JLabel("Tipo");
 		panelCuestionario.add(tipo);
 		JComboBox<TipoGasto> respuestaTipo = new JComboBox<>(TipoGasto.values());
+		
+		//iconos de combo box
+		//ponemos una imagen en cada opcion del desplegable: resources/images/comida.png, ocio.png...
+		respuestaTipo.setRenderer(new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+				JLabel etiqueta = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				if (value != null) {
+					TipoGasto tipoOpcion = (TipoGasto) value;
+					//tamaño de la imagen del png, modificar
+					etiqueta.setIcon(new ImageIcon(new ImageIcon("resources/images/" + tipoOpcion.name().toLowerCase() + ".png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+				}
+				return etiqueta;
+			}
+		});
+		
 		panelCuestionario.add(respuestaTipo);
 		JLabel importe = new JLabel("Importe");
 		panelCuestionario.add(importe);
