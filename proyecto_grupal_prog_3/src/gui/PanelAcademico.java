@@ -147,7 +147,7 @@ public class PanelAcademico extends JPanel {
 					gestion.anadirTarea(nueva);
 					actualizarTabla();
 
-					//limpiamos los campos
+					
 					txtAsignatura.setText("");
 					txtNombre.setText("");
 					txtFecha.setText("");
