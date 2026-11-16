@@ -135,7 +135,26 @@ public class PanelAcademico extends JPanel {
 		//boton añadir
 		btnAnadir.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {	
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String asignatura = txtAsignatura.getText();
+					String nombre = txtNombre.getText();
+					DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					LocalDate fecha = LocalDate.parse(txtFecha.getText().trim(), formato);
+					int estres = (Integer) cmbEstres.getSelectedItem();
+
+					Tarea nueva = new Tarea(asignatura, nombre, fecha, estres);
+					gestion.anadirTarea(nueva);
+					actualizarTabla();
+
+					//limpiamos los campos
+					txtAsignatura.setText("");
+					txtNombre.setText("");
+					txtFecha.setText("");
+					cmbEstres.setSelectedIndex(0);
+					} catch (DateTimeParseException ex) {
+					JOptionPane.showMessageDialog(PanelAcademico.this, "Formato de fecha incorrecto. Usa dd/MM/yyyy", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 			}
 		});
  
